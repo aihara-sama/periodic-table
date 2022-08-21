@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledAtom = styled.div`
+const StyledAtom = styled.div<{ active: boolean }>`
 	border: 1px solid gray;
 	width: 100px;
 	height: 100px;
@@ -8,14 +8,12 @@ const StyledAtom = styled.div`
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	transform: scale(1);
+	z-index: 9999;
 	transition: 0.3s;
+	transform: ${({ active }) => `scale(${active ? 1.2 : 1})`};
 
-	&:hover {
-		transform: scale(1.3);
-		.atom-shell {
-			opacity: 1;
-		}
+	.atom-shell {
+		display: ${({ active }) => (active ? "block" : "none")};
 	}
 `;
 

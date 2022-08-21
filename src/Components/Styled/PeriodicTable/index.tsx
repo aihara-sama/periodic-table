@@ -5,7 +5,7 @@ const StyledPeriodicTable = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
-	padding: 50px;
+	padding: 80px;
 `;
 
 export default StyledPeriodicTable;

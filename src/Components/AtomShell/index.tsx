@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import Electron from "../Electron";
 import StyledAtomShell from "../Styled/AtomCloud";
 
@@ -29,6 +29,7 @@ const AtomShell: FunctionComponent<IProps> = ({ electrons, level }) => {
 			>
 				{new Array(electrons).fill(0).map((_, idx) => (
 					<Electron
+						key={idx}
 						radius={(level * 20) / 2}
 						angle={(360 / electrons) * (idx + 1)}
 					/>

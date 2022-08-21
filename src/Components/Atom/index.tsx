@@ -1,30 +1,24 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
+import { IChemicalElement } from "../../Interfaces/element.interface";
 import AtomShell from "../AtomShell";
 import StyledAtom from "../Styled/Atom";
 import StyledAtomicMass from "../Styled/AtomicMass";
 import StyledAtomicNumber from "../Styled/AtomicNumber";
 import StyledAtomMeta from "../Styled/AtomMeta";
 import StyledAtomName from "../Styled/AtomName";
+import StyledAtomOverlay from "../Styled/AtomOverlay";
 import StyledAtomStructure from "../Styled/AtomStructure";
 import StyledChemicalSymbol from "../Styled/ChemicalSymbol";
 
-interface IProps {
-	atomic_number: number;
-	chemical_symbol: string;
-	atom_name: string;
-	atomic_mass: number;
-	chemical_structures: ("hexagonal" | "hexagonal-close-packed")[];
-	shells: {
-		electrons: number;
-	}[];
-}
-
-const Atom: FunctionComponent<IProps> = (props) => {
+const Atom: FunctionComponent<IChemicalElement & { active: boolean }> = (
+	props
+) => {
 	// ~~~~~ Redux state ~~~~~
 
 	// ~~~~~ Hooks ~~~~~
 
 	// ~~~~~ Cmp state ~~~~~
+	const [isActive, setIsActive] = useState(false);
 
 	// ~~~~~ Refs ~~~~~
 
@@ -33,18 +27,27 @@ const Atom: FunctionComponent<IProps> = (props) => {
 	// ~~~~~ Handlers ~~~~~
 
 	return (
-		<StyledAtom className="atom">
+		<StyledAtom active={isActive} className="atom">
+			<StyledAtomOverlay
+				onMouseEnter={() => {
+					setIsActive(true);
+				}}
+				onMouseOut={() => {
+					setIsActive(false);
+				}}
+			></StyledAtomOverlay>
 			<StyledAtomicNumber className="atomic-number">
 				{props.atomic_number}
 			</StyledAtomicNumber>
 			{props.chemical_structures.map((structure, idx) => (
 				<StyledAtomStructure
+					key={idx}
 					className={`atom-structure-${structure}`}
 					level={idx + 1}
 				>
 					<img
 						width={20}
-						src={`/assets/images/${structure}.svg`}
+						src={`/assets/images/crystal-structure/${structure}.svg`}
 						alt="hexagonal"
 					/>
 				</StyledAtomStructure>
@@ -57,7 +60,7 @@ const Atom: FunctionComponent<IProps> = (props) => {
 				<StyledAtomicMass>{props.atomic_mass}</StyledAtomicMass>
 			</StyledAtomMeta>
 			{props.shells.map((shell, idx) => (
-				<AtomShell level={idx + 4} electrons={shell.electrons} />
+				<AtomShell key={idx} level={idx + 4} electrons={shell.electrons} />
 			))}
 		</StyledAtom>
 	);

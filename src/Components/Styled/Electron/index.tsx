@@ -4,7 +4,8 @@ import { getPointCoords } from "../../../Utils";
 const StyledElectron = styled.div<{ angle: number; radius: number }>`
 	width: 6px;
 	height: 6px;
-	background-color: orange;
+	box-shadow: 0 0 10px 2px white;
+	background-color: #02010f;
 	border-radius: 50%;
 	position: absolute;
 	left: ${({ angle, radius }) =>
